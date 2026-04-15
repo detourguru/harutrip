@@ -1,6 +1,7 @@
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import "./App.css";
 import type { Session } from "./types/journeys";
+import { BottomNav } from "./components/BottomNav";
 
 const MOCK_SESSION: Session = {
   id: "1",
@@ -40,28 +41,31 @@ function App() {
   }));
 
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <Map
-        center={{ lat: 37.5665, lng: 126.978 }}
-        style={{ width: "100%", height: "100%" }}
-        level={3}
-      >
-        <Polyline
-          path={[linePath]}
-          strokeWeight={5}
-          strokeColor={"#6B705C"}
-          strokeOpacity={0.7}
-          strokeStyle={"solid"}
-        />
-
-        {MOCK_SESSION.spots.map((spot) => (
-          <MapMarker
-            key={spot.id}
-            position={{ lat: spot.lat, lng: spot.lng }}
-            title={spot.title}
+    <div className="flex flex-col w-full h-screen">
+      <main className="flex-1 relative">
+        <Map
+          center={{ lat: 37.5665, lng: 126.978 }}
+          className="size-full"
+          level={3}
+        >
+          <Polyline
+            path={[linePath]}
+            strokeWeight={5}
+            strokeColor={"#6B705C"}
+            strokeOpacity={0.7}
+            strokeStyle={"solid"}
           />
-        ))}
-      </Map>
+
+          {MOCK_SESSION.spots.map((spot) => (
+            <MapMarker
+              key={spot.id}
+              position={{ lat: spot.lat, lng: spot.lng }}
+              title={spot.title}
+            />
+          ))}
+        </Map>
+      </main>
+      <BottomNav />
     </div>
   );
 }
